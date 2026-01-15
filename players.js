@@ -90,7 +90,7 @@ const playersByGrade = {
         ],
         "mid": [
             { "name": "ShowMaker", "year": "20", "team": "DK", "img": "images/players/2020showmaker.webp" },
-            { "name": "Zeka", "year": "22", "team": "DRX", "img": "images/players/zeka.png" },
+            { "name": "Zeka", "year": "22", "team": "DRX", "img": "images/players/22zeka.png" },
             { "name": "PawN", "year": "14", "team": "GEN", "img": "images/players/14pawn.webp" },
             { "name": "Crown", "year": "17", "team": "GEN", "img": "images/players/17crown.webp" },
             { "name": "Chovy", "year": "24", "team": "GEN", "img": "images/players/24chovy.webp" },
@@ -212,3 +212,4 @@ const playersByGrade = {
     }
 
 };
+

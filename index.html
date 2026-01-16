@@ -9,6 +9,7 @@
             --bg-dark: #020508;
             --overlay-bg: rgba(0, 0, 0, 0.95);
             --normal-color: #87CEEB;
+            --rare-color: #A330C9; /* 레어 등급: 보라색 */
             --special-color: #FF4444;
             --legend-color: #FFD700;
             --accent-gold: #c8aa6e;
@@ -51,9 +52,10 @@
         .menu-btn:hover h2, .tab-btn:hover span { color: black; }
         h2, span { color: var(--accent-gold); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin: 0; pointer-events: none; }
 
-        /* 필터 스타일 */
+        /* 필터 및 검색창 스타일 */
         .filter-container { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; background: rgba(26, 36, 56, 0.5); padding: 15px; border-radius: 10px; }
-        .filter-container select { background: #1a2438; color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 8px 12px; cursor: pointer; font-weight: bold; outline: none; }
+        .filter-container select, .filter-container input { background: #1a2438; color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 8px 12px; cursor: pointer; font-weight: bold; outline: none; }
+        .filter-container input::placeholder { color: rgba(200, 170, 110, 0.5); }
 
         /* --- 카드 디자인 --- */
         .card { width: 160px; height: 240px; position: relative; transition: 0.3s; background-color: #333; padding: var(--border-width); box-sizing: border-box; clip-path: var(--card-clip-path); flex-shrink: 0; }
@@ -77,6 +79,7 @@
         .p-team-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .grade-normal { background-color: var(--normal-color) !important; }
+        .grade-rare { background-color: var(--rare-color) !important; box-shadow: 0 0 15px rgba(163, 48, 201, 0.4); }
         .grade-special { background-color: var(--special-color) !important; box-shadow: 0 0 15px rgba(255, 68, 68, 0.4); }
         .grade-legend { background-color: var(--legend-color) !important; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); animation: pulse-gold 2s infinite; }
         @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
@@ -145,13 +148,13 @@
         </div>
         <button class="clear-all-btn" onclick="clearFullData()">전체 도감 데이터 초기화</button>
         <div class="notice-box">
-            <h3>제작자 공지</h3>
-            <p>• LCK DRAFT를 이용해 주셔서 감사합니다.
-• 본 프로그램은 팬 프로젝트로 제작되었으며, 선수의 데이터 및 이미지는 업데이트를 통해 추가될 예정입니다.
-• 도감 카드를 클릭하면 상세 정보를 크게 확인할 수 있습니다.
-• 나만의 로스터에서 포지션 상관없이 구성이 가능합니다.
-• 브라우저의 쿠키나 로컬 데이터를 삭제할 경우 수집한 도감 기록이 사라질 수 있으니 주의해 주세요.
-• 버그 제보 및 건의사항은 하단의 이메일로 보내주시면 감사하겠습니다.</p>
+            <h3>1월 16일 패치노트</h3>
+            <p>• 리그 우승 시즌 카드인 레어 등급 카드가 추가되었습니다.
+• 현재 LCK 참가팀들의 과거 시즌 선수들 카드가 추가되었습니다.
+• 과거 LCK 참가팀들의 일부 시즌 선수들 카드가 추가되었습니다.
+• 사진이 수록되어있지 않은 선수들은 순차적 업데이트 예정입니다.
+• 뽑기 확률의 변동이 있습니다.
+• 선수 닉네임으로 검색기능이 추가되었습니다.</p>
         </div>
     </section>
 
@@ -159,11 +162,17 @@
         <h1 style="color: var(--accent-gold);">선수 뽑기</h1>
         <div id="draft-board"></div>
         <div style="display:flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top:30px;">
-            <button id="all-pack-btn" class="all-btn" onclick="openAllPacks()">전체 뽑기 (1명 스페셜 이상 확정)</button>
+            <button id="all-pack-btn" class="all-btn" onclick="openAllPacks()">전체 뽑기 (1명 레어 등급 이상 확정)</button>
             <button class="reset-btn" onclick="resetDraftSession()">한번 더 뽑기</button>
         </div>
-        <div style="margin-top:20px; font-weight:bold; text-align: center;">
-            <span style="color: var(--normal-color);">일반 80%</span> | <span style="color: var(--special-color);">스페셜 15%</span> | <span style="color: var(--legend-color);">레전드 5%</span>
+        <div style="margin-top:25px; padding: 15px; background: rgba(26, 36, 56, 0.4); border-radius: 10px; border: 1px solid #1e2328; width: 100%; max-width: 600px;">
+            <div style="margin-bottom: 10px; font-size: 14px; color: #888; text-align: center;">등급별 획득 확률 안내</div>
+            <div style="font-weight:bold; text-align: center; letter-spacing: 1px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
+                <span style="color: var(--normal-color);">NORMAL 70%</span> 
+                <span style="color: var(--rare-color);">RARE 15%</span> 
+                <span style="color: var(--special-color);">SPECIAL 10%</span> 
+                <span style="color: var(--legend-color);">LEGEND 5%</span>
+            </div>
         </div>
     </section>
 
@@ -185,6 +194,7 @@
                     <option value="all">전체 등급</option>
                     <option value="legend">LEGEND</option>
                     <option value="special">SPECIAL</option>
+                    <option value="rare">RARE</option>
                     <option value="normal">NORMAL</option>
                 </select>
                 <select id="col-filter-year" onchange="renderCollectionDetail(0)">
@@ -198,6 +208,7 @@
                     <option value="adc">ADC</option>
                     <option value="sup">SUP</option>
                 </select>
+                <input type="text" id="col-search-name" placeholder="닉네임 검색..." onkeyup="renderCollectionDetail(0)">
             </div>
 
             <div id="collection-grid"></div>
@@ -226,6 +237,7 @@
                     <option value="all">전체 등급</option>
                     <option value="legend">LEGEND</option>
                     <option value="special">SPECIAL</option>
+                    <option value="rare">RARE</option>
                     <option value="normal">NORMAL</option>
                 </select>
                 <select id="ros-filter-year" onchange="renderSelectionPage(0)">
@@ -239,6 +251,7 @@
                     <option value="adc">ADC</option>
                     <option value="sup">SUP</option>
                 </select>
+                <input type="text" id="ros-search-name" placeholder="닉네임 검색..." onkeyup="renderSelectionPage(0)">
             </div>
 
             <div id="selection-grid"></div>
@@ -276,14 +289,14 @@
         let draftedStatus = { top: false, jgl: false, mid: false, adc: false, sup: false };
         let currentCollectionPage = 'active', selectingSlot = null, isSkip = false, closePopupResolver = null;
         let currentSelectionPage = 0, currentCollectionDetailPage = 0, playersPerPage = 12;
-        let currentOwnedList = [], currentTeamPlayers = [], currentSelectedTeam = "";
+        let currentSelectedTeam = "";
 
         const CONFIG_ACTIVE_TEAMS = ['GEN', 'HLE', 'KT', 'T1', 'DK', 'BFX', 'NS', 'BRO', 'DRX', 'DNS'];
         const CONFIG_PAST_TEAMS = ['LCK', 'BBQ', 'CJE', 'EEW', 'GRF', 'JAG', 'MVP', 'SBK', 'SP', 'LOL'];
         const CONFIG_LOGOS = { 'LCK': 'images/logos/lck.svg', 'BBQ': 'images/logos/bbq.webp', 'BFX': 'images/logos/bfx.svg', 'BRO': 'images/logos/bro.svg', 'CJE': 'images/logos/cje.svg', 'DK': 'images/logos/dk.svg', 'DNS': 'images/logos/dns.svg', 'DRX': 'images/logos/drx.svg', 'EEW': 'images/logos/eew.webp', 'GEN': 'images/logos/gen.webp', 'GRF': 'images/logos/grf.webp', 'HLE': 'images/logos/hle.svg', 'JAG': 'images/logos/jag.svg', 'KT': 'images/logos/kt.svg', 'MVP': 'images/logos/mvp.webp', 'NS': 'images/logos/ns.svg', 'SBK': 'images/logos/sbk.webp', 'SP': 'images/logos/sp.webp', 'T1': 'images/logos/t1.svg', 'LOL': 'images/logos/lol.svg' };
         const CONFIG_COLORS = { 'LCK': '#c8aa6e', 'BBQ': '#c6131a', 'BFX': '#666666', 'BRO': '#00492b', 'CJE': '#666666', 'DK': '#666666', 'DNS': '#0c50f1', 'DRX': '#1102a3', 'EEW': '#b2732d', 'GEN': '#666666', 'GRF': '#666666', 'HLE': '#ff6b01', 'JAG': '#14a73c', 'KT': '#666666', 'MVP': '#0c77ba', 'NS': '#de2027', 'SBK': '#0100ff', 'SP': '#d74646', 'T1': '#e4002b', 'LOL': '#666666' };
         const POS_ORDER = { 'top': 1, 'jgl': 2, 'mid': 3, 'adc': 4, 'sup': 5 };
-        const GRADE_ORDER = { 'legend': 1, 'special': 2, 'normal': 3 };
+        const GRADE_ORDER = { 'legend': 1, 'special': 2, 'rare': 3, 'normal': 4 };
         const CONFIG_POS_LOGOS = { 'top': 'images/logos/top.svg', 'jgl': 'images/logos/jgl.svg', 'mid': 'images/logos/mid.svg', 'adc': 'images/logos/adc.svg', 'sup': 'images/logos/sup.svg' };
 
         function getSafeLogo(n) { return CONFIG_LOGOS[n.toUpperCase().trim()] || ""; }
@@ -292,7 +305,6 @@
             return `<div class="p-year">${p.year}</div><div class="p-pos">${pos.toUpperCase()}</div><div class="p-photo"><img src="${p.img}"></div><div class="p-info-box"><div class="p-name">${p.name}</div><div class="p-team-box"><img src="${getSafeLogo(p.team)}"></div></div>`;
         }
 
-        // 필터용 연도 리스트 생성
         function initYearFilters() {
             const years = new Set();
             Object.keys(playersByGrade).forEach(g => {
@@ -300,7 +312,7 @@
                     playersByGrade[g][pos].forEach(p => years.add(p.year));
                 });
             });
-            const sortedYears = Array.from(years).sort((a, b) => a - b); // 오름차순
+            const sortedYears = Array.from(years).sort((a, b) => a - b);
             ['col-filter-year', 'ros-filter-year'].forEach(id => {
                 const select = document.getElementById(id);
                 if(!select) return;
@@ -330,17 +342,33 @@
         function checkDraftStatus() { document.getElementById('all-pack-btn').disabled = Object.values(draftedStatus).some(v => v === true); }
         function resetDraftSession() { draftedStatus = { top: false, jgl: false, mid: false, adc: false, sup: false }; initDraft(); }
 
+        // --- 전체 뽑기 로직 (1명 레어 이상 확정) ---
         async function openAllPacks() {
-            let gs = []; for(let i=0; i<5; i++) { let r = Math.random()*100; gs.push(r<=5 ? 'legend' : (r<=20 ? 'special' : 'normal')); }
-            if(!gs.some(g => g !== 'normal')) gs[Math.floor(Math.random()*5)] = 'special';
-            const ps = ['top','jgl','mid','adc','sup']; for(let i=0; i<5; i++) { await openPack(ps[i], gs[i]); }
+            let gs = []; 
+            for(let i=0; i<5; i++) { 
+                let r = Math.random()*100;
+                // 확률: Legend 5%, Special 10%, Rare 15%, Normal 70%
+                let grade = r <= 5 ? 'legend' : (r <= 15 ? 'special' : (r <= 30 ? 'rare' : 'normal'));
+                gs.push(grade);
+            }
+            // 레어 이상(Rare, Special, Legend)이 한 명도 없으면 무작위 한 명을 'rare'로 확정 보정
+            if(!gs.some(g => g === 'rare' || g === 'special' || g === 'legend')) {
+                gs[Math.floor(Math.random()*5)] = 'rare';
+            }
+            const ps = ['top','jgl','mid','adc','sup']; 
+            for(let i=0; i<5; i++) { await openPack(ps[i], gs[i]); }
         }
 
         async function openPack(pos, forcedG = null) {
             if(draftedStatus[pos]) return;
             isSkip = false;
 
-            let g = forcedG || (Math.random()*100 <= 5 ? 'legend' : (Math.random()*100 <= 20 ? 'special' : 'normal'));
+            let r = Math.random()*100;
+            let g = forcedG || (r <= 5 ? 'legend' : (r <= 15 ? 'special' : (r <= 30 ? 'rare' : 'normal')));
+            
+            // 데이터 예외 처리
+            if(!playersByGrade[g] || !playersByGrade[g][pos]) g = 'normal';
+            
             let p = playersByGrade[g][pos][Math.floor(Math.random() * playersByGrade[g][pos].length)];
             const id = `${p.name}_${p.year}_${p.team}`;
             const isNew = !myCards.includes(id);
@@ -350,16 +378,17 @@
                 localStorage.setItem('lck_collection', JSON.stringify(myCards));
             }
 
+            // 노말 등급은 연출 없이 즉시 오픈
             if (g === 'normal') {
                 updateDraftBoard(pos, g, p, isNew);
                 checkDraftStatus();
                 return Promise.resolve();
             }
 
+            // 레어 이상은 팝업 연출
             const popupCard = document.getElementById('popup-card');
             const overlay = document.getElementById('pack-overlay');
             
-            // --- [수정] 팝업 초기화: 새로운 카드를 보여주기 전에 이전 이미지를 비웁니다. ---
             overlay.style.display = 'none'; 
             popupCard.classList.remove('show');
             document.querySelectorAll('.reveal-item').forEach(el => el.classList.remove('active'));
@@ -370,14 +399,12 @@
             document.getElementById('p-name').innerText = "";
             document.getElementById('p-team-img').src = "";
 
-            // 짧은 지연을 주어 브라우저가 화면을 초기화된 상태로 다시 그리도록 합니다.
             await new Promise(res => setTimeout(res, 50));
 
             overlay.style.display = 'flex';
             document.getElementById('close-btn').style.display = 'none';
             document.getElementById('skip-btn').style.display = 'block';
 
-            // 데이터 주입
             popupCard.className = `popup-card card grade-${g}`;
             document.getElementById('p-img').src = p.img;
             document.getElementById('p-year').innerText = p.year;
@@ -385,7 +412,6 @@
             document.getElementById('p-name').innerText = p.name;
             document.getElementById('p-team-img').src = getSafeLogo(p.team);
 
-            // DOM 안정화 대기
             await new Promise(res => setTimeout(res, 100));
             popupCard.classList.add('show');
 
@@ -413,17 +439,13 @@
             card.innerHTML = `${isNew ? '<div class="new-badge">NEW</div>' : ''}<div class="card-inner" style="display:block;">${getCardHTML(p, pos, true)}</div>`;
         }
 
-        // --- [수정] 팝업 닫기: 닫는 즉시 다음 카드를 위해 이미지 경로를 비웁니다. ---
         function handleClosePopup() { 
             const popupCard = document.getElementById('popup-card');
             popupCard.classList.remove('show'); 
             document.getElementById('pack-overlay').style.display = 'none'; 
-            
-            // 이미지와 연출 아이템 초기화
             document.getElementById('p-img').src = ""; 
             document.getElementById('p-team-img').src = "";
             document.querySelectorAll('.reveal-item').forEach(el => el.classList.remove('active'));
-
             if(closePopupResolver) closePopupResolver(); 
         }
 
@@ -453,15 +475,13 @@
         }
 
         function viewTeamDetail(t) {
-            currentSelectedTeam = t;
-            currentCollectionDetailPage = 0;
+            currentSelectedTeam = t; currentCollectionDetailPage = 0;
             document.getElementById('team-bookshelf').style.display = 'none'; 
             document.getElementById('team-detail').style.display = 'flex';
-            
             document.getElementById('col-filter-grade').value = 'all';
             document.getElementById('col-filter-year').value = 'all';
             document.getElementById('col-filter-pos').value = 'all';
-
+            document.getElementById('col-search-name').value = '';
             renderCollectionDetail(0);
         }
 
@@ -473,6 +493,7 @@
             const fGrade = document.getElementById('col-filter-grade').value;
             const fYear = document.getElementById('col-filter-year').value;
             const fPos = document.getElementById('col-filter-pos').value;
+            const fSearch = document.getElementById('col-search-name').value.toLowerCase();
 
             let allMatched = [];
             Object.keys(playersByGrade).forEach(gr => {
@@ -482,24 +503,19 @@
                     playersByGrade[gr][po].forEach(p => {
                         let teamMatch = (t === 'LCK') ? (gr === 'legend') : (gr !== 'legend' && p.team.toUpperCase() === t);
                         let yearMatch = (fYear === 'all' || fYear == p.year);
-                        if(teamMatch && yearMatch) { 
-                            allMatched.push({...p, grade: gr, pPos: po});
-                        }
+                        let nameMatch = (fSearch === '' || p.name.toLowerCase().includes(fSearch));
+                        if(teamMatch && yearMatch && nameMatch) { allMatched.push({...p, grade: gr, pPos: po}); }
                     });
                 });
             });
 
-            // 과거 연도부터 정렬
             allMatched.sort((a, b) => GRADE_ORDER[a.grade] - GRADE_ORDER[b.grade] || POS_ORDER[a.pPos] - POS_ORDER[b.pPos] || a.year - b.year);
-
             const totalPages = Math.ceil(allMatched.length / playersPerPage);
             if (currentCollectionDetailPage < 0) currentCollectionDetailPage = 0;
             if (currentCollectionDetailPage >= totalPages && totalPages > 0) currentCollectionDetailPage = totalPages - 1;
 
             const start = currentCollectionDetailPage * playersPerPage;
-            const pageItems = allMatched.slice(start, start + playersPerPage);
-
-            pageItems.forEach(p => {
+            allMatched.slice(start, start + playersPerPage).forEach(p => {
                 const got = myCards.includes(`${p.name}_${p.year}_${p.team}`); 
                 const cardDiv = document.createElement('div');
                 cardDiv.className = `card ${got ? 'grade-'+p.grade+' obtained' : 'unobtained'}`;
@@ -507,7 +523,6 @@
                 if(got) cardDiv.onclick = () => showCollectionPopup(p.name, p.year, p.team, p.pPos, p.grade, p.img);
                 grid.appendChild(cardDiv);
             });
-
             document.getElementById('col-page-info').innerText = `${allMatched.length > 0 ? currentCollectionDetailPage + 1 : 0} / ${totalPages || 0}`;
         }
 
@@ -521,13 +536,11 @@
         }
 
         function showRosterSelection(pos) {
-            selectingSlot = pos; 
-            currentSelectionPage = 0;
-            
+            selectingSlot = pos; currentSelectionPage = 0;
             document.getElementById('ros-filter-grade').value = 'all';
             document.getElementById('ros-filter-year').value = 'all';
             document.getElementById('ros-filter-pos').value = pos; 
-
+            document.getElementById('ros-search-name').value = '';
             document.getElementById('selection-view').style.display = 'flex'; 
             renderSelectionPage(0);
             document.getElementById('selection-view').scrollIntoView({ behavior: 'smooth' });
@@ -536,10 +549,10 @@
         function renderSelectionPage(pageOffset) {
             currentSelectionPage += pageOffset;
             const grid = document.getElementById('selection-grid'); grid.innerHTML = '';
-            
             const fGrade = document.getElementById('ros-filter-grade').value;
             const fYear = document.getElementById('ros-filter-year').value;
             const fPos = document.getElementById('ros-filter-pos').value;
+            const fSearch = document.getElementById('ros-search-name').value.toLowerCase();
 
             let filteredOwned = [];
             Object.keys(playersByGrade).forEach(gr => {
@@ -548,17 +561,15 @@
                     if (fPos !== 'all' && fPos !== po) return;
                     playersByGrade[gr][po].forEach(p => {
                         if (myCards.includes(`${p.name}_${p.year}_${p.team}`)) {
-                            if (fYear === 'all' || fYear == p.year) {
-                                filteredOwned.push({ ...p, grade: gr, pPos: po });
-                            }
+                            let yearMatch = (fYear === 'all' || fYear == p.year);
+                            let nameMatch = (fSearch === '' || p.name.toLowerCase().includes(fSearch));
+                            if (yearMatch && nameMatch) { filteredOwned.push({ ...p, grade: gr, pPos: po }); }
                         }
                     });
                 });
             });
 
-            // 과거 연도부터 정렬
             filteredOwned.sort((a, b) => GRADE_ORDER[a.grade] - GRADE_ORDER[b.grade] || POS_ORDER[a.pPos] - POS_ORDER[b.pPos] || a.year - b.year);
-
             const totalPages = Math.ceil(filteredOwned.length / playersPerPage);
             if (currentSelectionPage < 0) currentSelectionPage = 0;
             if (currentSelectionPage >= totalPages && totalPages > 0) currentSelectionPage = totalPages - 1;
@@ -576,7 +587,6 @@
                 };
                 grid.appendChild(d);
             });
-
             document.getElementById('page-info').innerText = `${filteredOwned.length > 0 ? currentSelectionPage + 1 : 0} / ${totalPages || 0}`;
         }
 
@@ -584,5 +594,4 @@
         function hideSelection() { document.getElementById('selection-view').style.display = 'none'; }
     </script>
 </body>
-
 </html>

@@ -103,7 +103,7 @@ const playersByGrade = {
             { "name": "DoinB", "year": "19", "team": "LOL", "img": "images/players/19doinb.webp" },
             { "name": "ShowMaker", "year": "20", "team": "DK", "img": "images/players/2020showmaker.webp" },
             { "name": "Scout", "year": "21", "team": "LOL", "img": "images/players/21scout.webp" },
-            { "name": "Zeka", "year": "22", "team": "DRX", "img": "images/players/zeka.png" },
+            { "name": "Zeka", "year": "22", "team": "DRX", "img": "images/players/22zeka.webp" },
             { "name": "Faker", "year": "23", "team": "T1", "img": "images/players/23faker.webp" },
             { "name": "Chovy", "year": "24", "team": "GEN", "img": "images/players/24chovy.webp" },
             { "name": "Faker", "year": "24", "team": "T1", "img": "images/players/24faker.webp" },
@@ -882,3 +882,4 @@ const playersByGrade = {
         ]
     }
 };
+
